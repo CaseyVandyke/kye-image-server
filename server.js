@@ -8,10 +8,10 @@ const passport = require("passport");
 const { DATABASE_URL, PORT } = require("./config");
 const User = require("./models/usersModel");
 const Blog = require("./models/blogModel");
-const adminImage = require("./models/imageModel");
+const Comments = require("./models/commentsModel");
 const { router: userRouter } = require("./routers/userRouter");
 const { router: blogRouter } = require("./routers/blogRouter");
-const { router: imageRouter } = require("./routers/imageRouter");
+const { router: commentsRouter } = require("./routers/commentsRouter");
 const { router: router, localStrategy, jwtStrategy } = require("./auth");
 
 app.use(express.static("public"));
@@ -23,7 +23,7 @@ passport.use(jwtStrategy);
 
 app.use("/api", userRouter);
 app.use("/api", blogRouter);
-app.use("/api", imageRouter);
+app.use("/api", commentsRouter);
 app.use("/api/auth", router);
 
 const jwtAuth = passport.authenticate("jwt", { session: false });

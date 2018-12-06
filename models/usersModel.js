@@ -13,13 +13,18 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  isAdmin: {
+    type: String,
+    default: false
   }
 });
 
 UserSchema.methods.serialize = function() {
   return {
     username: this.username || "",
-    id: this._id || ""
+    id: this._id || "",
+    isAdmin: this.isAdmin || ""
   };
 };
 

@@ -18,17 +18,15 @@ const blogPostSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  author: {
-    type: mongoose.Schema.Types.Mixed,
-    ref: "user"
-  },
   likes: Number,
   image: String,
-  comments: {
-    body: String,
-    date: Date,
-    username: String
-  }
+  comments: [
+    {
+      username: String,
+      body: String,
+      date: Date
+    }
+  ]
 });
 
 const Blog = mongoose.model("blogs", blogPostSchema);

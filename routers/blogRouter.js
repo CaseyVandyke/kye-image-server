@@ -3,6 +3,7 @@ const router = express.Router();
 const Blog = require("../models/blogModel");
 const passport = require("passport");
 const jwtAuth = passport.authenticate("jwt", { session: false });
+const passportAuth = passport.authenticate("jwt", { session: false });
 const User = require("../models/usersModel");
 
 //get all posts
@@ -25,21 +26,21 @@ router.get("/posts", (req, res) => {
 
 //create new post
 //works
-router.post("/posts", jwtAuth, (req, res) => {
-  const payload = {
-    title: req.body.title,
-    body: req.body.body,
-    category: req.body.category,
-    image: req.body.image
-  };
+router.post("/blog/posts", passportAuth, (req, res) => {
+  if (req.body.isAdmin == "true") {
+    const payload = {
+      title: req.body.title,
+      body: req.body.body,
+      category: req.body.category,
+      image: req.body.image
+    };
 
-  Blog.create(payload)
-    .then(newPost => res.status(201).json(newPost))
-    .catch(() => {
-      res.status(500).json({
-        error: "Duplicate entry error"
-      });
+    Blog.create(payload).then(newPost => res.status(201).json(newPost));
+  } else {
+    res.status(500).json({
+      error: "Unauthorized user"
     });
+  }
 });
 
 router.put("/posts/:id", (req, res) => {
