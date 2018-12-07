@@ -9,6 +9,10 @@ const commentSchema = mongoose.Schema({
     type: mongoose.Schema.Types.Mixed,
     ref: "user"
   },
+  title: {
+    type: String,
+    required: true
+  },
   comment: {
     type: String
   },

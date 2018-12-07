@@ -27,8 +27,8 @@ router.get("/users", (req, res, next) => {
 router.post("/users", jsonParser, (req, res) => {
   const username = req.body.username;
   const pass = req.body.password;
-  const role = req.body.isAdmin;
-  console.log(role);
+  const isAdmin = req.body.isAdmin;
+  console.log(isAdmin);
   User.findOne({ username })
     .then(_user => {
       if (_user) {
@@ -47,7 +47,7 @@ router.post("/users", jsonParser, (req, res) => {
       return User.create({
         username,
         password: hash,
-        role
+        isAdmin
       });
     })
     .then(newUser => {

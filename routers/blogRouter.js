@@ -27,12 +27,13 @@ router.get("/posts", (req, res) => {
 //create new post
 //works
 router.post("/blog/posts", passportAuth, (req, res) => {
-  if (req.body.isAdmin == "true") {
+  if (req.user.isAdmin == "true") {
     const payload = {
       title: req.body.title,
       body: req.body.body,
-      category: req.body.category,
-      image: req.body.image
+      comments: req.body.comments,
+      image: req.body.image,
+      recentPosts: req.body.recentPosts
     };
 
     Blog.create(payload).then(newPost => res.status(201).json(newPost));
@@ -43,9 +44,16 @@ router.post("/blog/posts", passportAuth, (req, res) => {
   }
 });
 
+// works
 router.put("/posts/:id", (req, res) => {
   const updated = {};
-  const updateableFields = ["title", "body", "image"];
+  const updateableFields = [
+    "title",
+    "body",
+    "comments",
+    "image",
+    "recentPosts"
+  ];
   updateableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];
@@ -65,6 +73,7 @@ router.put("/posts/:id", (req, res) => {
     });
 });
 
+// works
 router.delete("/posts/:id", (req, res) => {
   Blog.findByIdAndRemove(req.params.id).then(() => {
     console.log(`Deleted post with id \`${req.params.id}\``);

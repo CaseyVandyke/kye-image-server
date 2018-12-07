@@ -26,6 +26,13 @@ const blogPostSchema = mongoose.Schema({
       body: String,
       date: Date
     }
+  ],
+  recentPosts: [
+    {
+      title: String,
+      image: String,
+      date: Date
+    }
   ]
 });
 
