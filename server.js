@@ -40,6 +40,10 @@ app.use("*", (err, req, res, next) => {
   res.status(422).send({ error: err.message });
 });
 
+app.get("/", function(req, res, next) {
+  res.send("Hello world");
+});
+
 let server;
 // this function connects to our database, then starts the server
 function runServer(databaseUrl, port = PORT) {
