@@ -5,7 +5,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-const { DATABASE_URL, PORT } = require("./config");
+const { DATABASE_URL, PORT, CLIENT_ORIGIN } = require("./config");
 const User = require("./models/usersModel");
 const Blog = require("./models/blogModel");
 const Comments = require("./models/commentsModel");
@@ -35,14 +35,11 @@ app.get("/api/protected", jwtAuth, (req, res) => {
   });
 });
 //error handling middleware
-app.use("*", (err, req, res, next) => {
-  // console.log(err);
-  res.status(422).send({ error: err.message });
-});
-
-app.get("/", function(req, res, next) {
-  res.send("Hello world");
-});
+app.use(
+  cors({
+    origin: CLIENT_ORIGIN
+  })
+);
 
 let server;
 // this function connects to our database, then starts the server

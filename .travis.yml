@@ -7,4 +7,4 @@ deploy:
     secure: sTWdElLXiVw5xmI3YGbMZzzkUQJN/gj2wjlDQ7k6Tj1uCe9My0pf6U+EQjJEKfixjbVM4bHocU8/y6DfNKZNLES3pO4pwktldBszdfPxNMnXOXfcgS+g0kdgyelTj94/dl4t9V2SJfZixYB0acWJrEAmsxw70TzYU1ZGhSuTCYnZHE6V3E6vLNkOAXqNv6V19CnNr5W3T9ulxo/W3SFDlr1zIE/Q/G5wFvfjdgyj4bzjnlpluFJ+VtdQ5Y6aOhUP9109Xm9rKkzl4FK1nEu1tFY0iDMvCey7vfQiaQTfD9/zYzz4gbWTPnIQbg0EaLMcsmh5F9MO8ICqYUDU3idqjdmvfNrKzO+Aqkv+SwBFYqkgwCvs0uX0qtFa2YMvHomvIJFpF2o4EULZsfVyuMxuK1ueTKWAJiXs9h/t0Zxye/gQ1TLtxx4D3OcLI22a7NEfYZZpc/j+DtLu8pFPpsR9okVZIXV6L47wejZ9IROxwypqPibHF/kkQogmCsI/+hYEsuOASRG5XDxB8xwFfhfgH7T8TgFGLSvj2EPhfZpJD6laTG6o6WV6Q+y3LD17m8H/qGeBZ1EvL19i/5t6y46AQpT8dAWt4HkO8VY1lDjV78WA0bICj+ds+MzeTH6HQsNQ3tBbQqFiDJZGt4+rNXL1Blq7n9YM0s7dWCCNUk/+2Bo=
   app: aqueous-peak-48000
   on:
-    repo: CaseyVandyke/kye-image2
+    repo: CaseyVandyke/kye-image-server
