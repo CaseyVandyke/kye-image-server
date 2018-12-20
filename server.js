@@ -2,6 +2,7 @@
 
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
@@ -28,7 +29,7 @@ app.use("/api/auth", router);
 
 const jwtAuth = passport.authenticate("jwt", { session: false });
 // A protected endpoint which needs a valid JWT to access it
-app.get("/api/protected", jwtAuth, (req, res) => {
+app.get("/api/*", jwtAuth, (req, res) => {
   console.log(req);
   return res.json({
     username: req.user.username
@@ -37,7 +38,9 @@ app.get("/api/protected", jwtAuth, (req, res) => {
 //error handling middleware
 app.use(
   cors({
-    origin: CLIENT_ORIGIN
+    origin: "*",
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS"
   })
 );
 
