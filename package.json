@@ -21,11 +21,13 @@
     "jsonwebtoken": "^8.4.0",
     "mocha": "^5.2.0",
     "mongoose": "^5.3.14",
+    "morgan": "^1.9.1",
     "node-modules": "^1.0.1",
     "nodemon": "^1.18.7",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "slugify": "^1.3.3"
+    "slugify": "^1.3.3",
+    "validator": "^10.10.0"
   }
 }

@@ -8,6 +8,10 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const jwtAuth = passport.authenticate("jwt", { session: false });
+const bcrypt = require("bcrypt");
+
+// Load Input Validation
+const validateRegisterInput = require("../validation/register");
 
 // Get all users
 router.get("/users", (req, res, next) => {
@@ -25,42 +29,28 @@ router.get("/users", (req, res, next) => {
 
 // @CREATE NEW USER
 router.post("/users", jsonParser, (req, res) => {
-  const username = req.body.username;
-  const pass = req.body.password;
-  const isAdmin = req.body.isAdmin;
-  console.log(isAdmin);
-  User.findOne({ username })
-    .then(_user => {
-      if (_user) {
-        //there is an existing user with the same username
-        return Promise.reject({
-          code: 422,
-          reason: "ValidationError",
-          message: "Username already taken",
-          location: "username"
-        });
-      }
-      // If there is no existing user, hash the password
-      return User.hashPassword(pass);
-    })
-    .then(hash => {
-      return User.create({
-        username,
-        password: hash,
-        isAdmin
+  User.findOne({ email: req.body.email }).then(user => {
+    if (user) {
+      return res.status(400).json({ email: "Email already exists" });
+    } else {
+      const newUser = new User({
+        email: req.body.email,
+        password: req.body.password,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
       });
-    })
-    .then(newUser => {
-      return res.status(201).json(newUser);
-    })
-    .catch(err => {
-      // Forward validation errors on to the client, otherwise give a 500
-      // error because something unexpected has happened
-      if (err.reason === "ValidationError") {
-        return res.status(err.code).json(err);
-      }
-      res.status(500).json({ code: 500, message: "Internal server error" });
-    });
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser
+            .save()
+            .then(user => res.json(user))
+            .catch(err => console.log(err));
+        });
+      });
+    }
+  });
 });
 
 //Update user
@@ -73,7 +63,7 @@ router.put("/users/:id", (req, res) => {
   }
 
   const updated = {};
-  const updateableFields = ["username", "password"];
+  const updateableFields = ["email", "password"];
   updateableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];
