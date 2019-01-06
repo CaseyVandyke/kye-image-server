@@ -29,9 +29,18 @@ router.get("/users", (req, res, next) => {
 
 // @CREATE NEW USER
 router.post("/users", jsonParser, (req, res) => {
+  console.log("/users email=", req.body.email);
+  const { errors, isValid } = validateRegisterInput(req.body);
+  console.log("------");
+
+  // Check validation
+  if (!isValid) {
+    return res.status(401).json(errors);
+  }
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      return res.status(400).json({ email: "Email already exists" });
+      errors.email = "Email already exists";
+      return res.status(402).json(errors);
     } else {
       const newUser = new User({
         email: req.body.email,
@@ -46,7 +55,9 @@ router.post("/users", jsonParser, (req, res) => {
           newUser
             .save()
             .then(user => res.json(user))
-            .catch(err => console.log(err));
+            .catch(err => {
+              return res.status(403).json(err);
+            });
         });
       });
     }

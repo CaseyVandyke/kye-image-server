@@ -10,7 +10,24 @@ const { DATABASE_URL, PORT, CLIENT_ORIGIN } = require("./config");
 const { router: userRouter } = require("./routers/userRouter");
 const { router: blogRouter } = require("./routers/blogRouter");
 const { router: commentsRouter } = require("./routers/commentsRouter");
+const { router: contactRouter } = require("./routers/contactRouter");
 const { router: router, localStrategy, jwtStrategy } = require("./auth");
+
+// Set storage engine
+const storage = multer.diskStorage({
+  destination: "./public/uploads",
+  filename: function(req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  }
+});
+
+// Init upload
+const upload = multer({
+  storage: storage
+}).single("myImage");
 
 let server;
 const app = express();
@@ -36,7 +53,11 @@ passport.use(jwtStrategy);
 app.use("/api", userRouter);
 app.use("/api", blogRouter);
 app.use("/api", commentsRouter);
+app.use("/api", contactRouter);
 app.use("/api/auth", router);
+
+// Public folder
+app.use(express.static("./public"));
 
 app.use("*", (req, res) => {
   return res.status(404).json({ message: "Not Found" });

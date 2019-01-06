@@ -26,11 +26,11 @@ module.exports = function validateRegisterInput(data) {
   }
 
   if (Validator.isEmpty(data.firstName)) {
-    errors.firstName = "Name field is required";
+    errors.firstName = "First Name field is required";
   }
 
   if (Validator.isEmpty(data.lastName)) {
-    errors.lastName = "Name field is required";
+    errors.lastName = "Last Name field is required";
   }
 
   return {

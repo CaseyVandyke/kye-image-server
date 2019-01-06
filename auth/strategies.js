@@ -13,7 +13,7 @@ const localStrategy = new LocalStrategy(
     let user;
     //console.log("username=" + username);
     //console.log("password=" + password);
-    User.findOne({ username: username })
+    User.findOne({ email: username })
       .then(_user => {
         user = _user;
         // console.log(user);
@@ -25,10 +25,10 @@ const localStrategy = new LocalStrategy(
             message: "Incorrect username or password"
           });
         }
+        console.log("test here");
         return user.validatePassword(password);
       })
       .then(isValid => {
-        //console.log(isValid);
         if (!isValid) {
           return Promise.reject({
             reason: "LoginError",
