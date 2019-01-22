@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 const User = require("./usersModel");
 
-const contactSchema = {
+const contactSchema = mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -25,7 +25,7 @@ const contactSchema = {
     type: String,
     required: true
   }
-};
+});
 
 const Contact = mongoose.model("contact", contactSchema);
 

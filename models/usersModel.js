@@ -24,7 +24,7 @@ const UserSchema = mongoose.Schema({
   },
   isAdmin: {
     type: String,
-    default: false
+    default: true
   }
 });
 
