@@ -8,7 +8,14 @@ const router = express.Router();
 router.get("/pricing", (req, res, next) => {
   Price.find().then(arr => {
     res.status(200).json({
-      families: arr[0].families
+      families: arr[0].families,
+      extended: arr[0].extended,
+      packageA: arr[0].packageA,
+      packageB: arr[0].packageB,
+      packageC: arr[0].packageC,
+      newborn: arr[0].newborn,
+      senior: arr[0].senior,
+      maternity: arr[0].maternity
     });
   });
 });
@@ -16,7 +23,10 @@ router.get("/pricing", (req, res, next) => {
 router.post("/pricing", jsonParser, (req, res, next) => {
   payload = {
     families: req.body.families,
-    wedding: req.body.wedding,
+    extended: req.body.extended,
+    packageA: req.body.packageA,
+    packageB: req.body.packageB,
+    packageC: req.body.packageC,
     newborn: req.body.newborn,
     senior: req.body.senior,
     maternity: req.body.maternity
@@ -34,7 +44,10 @@ router.put("/pricing/:id", (req, res, next) => {
   const updated = {};
   const updateableFields = [
     "families",
-    "wedding",
+    "extended",
+    "packageA",
+    "packageB",
+    "packageC",
     "newborn",
     "senior",
     "maternity"

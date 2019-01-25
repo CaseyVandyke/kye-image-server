@@ -5,7 +5,10 @@ mongoose.Promise = global.Promise;
 
 const priceSchema = mongoose.Schema({
   families: String,
-  wedding: String,
+  extended: String,
+  packageA: String,
+  packageB: String,
+  packageC: String,
   newborn: String,
   senior: String,
   maternity: String

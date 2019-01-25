@@ -8,6 +8,7 @@ const passport = require("passport");
 const Image = require("./models/imgModel");
 
 const { DATABASE_URL, PORT, CLIENT_ORIGIN } = require("./config");
+const { router: adminRouter } = require("./routers/adminRouter");
 const { router: imgRouter } = require("./routers/imgRouter");
 const { router: userRouter } = require("./routers/userRouter");
 const { router: blogRouter } = require("./routers/blogRouter");
@@ -91,6 +92,7 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 app.use(express.static("uploads"));
+app.use("/api", adminRouter);
 app.use("/api", priceRouter);
 app.use("/api", userRouter);
 app.use("/api", blogRouter);
