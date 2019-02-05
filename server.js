@@ -63,7 +63,7 @@ app.post("/uploads", upload.single("selectedFile"), (req, res) => {
   const payload = {
     title: req.body.title,
     date: req.body.date,
-    image: req.file.filename,
+    image: "http://localhost:4000/images/" + req.file.filename,
     info: req.body.info
   };
   Image.create(payload)
