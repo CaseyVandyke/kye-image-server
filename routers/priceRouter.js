@@ -41,7 +41,7 @@ router.post("/pricing", jsonParser, (req, res, next) => {
     });
 });
 
-router.put("/pricing/:id", (req, res, next) => {
+router.put("/pricing", (req, res, next) => {
   const updated = {};
   const updateableFields = [
     "families",
