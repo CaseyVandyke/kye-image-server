@@ -6,16 +6,16 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/pricing", (req, res, next) => {
-  Price.find().then(arr => {
+  Price.findOne().then(arr => {
     res.status(200).json({
-      families: arr[0].families,
-      extended: arr[0].extended,
-      packageA: arr[0].packageA,
-      packageB: arr[0].packageB,
-      packageC: arr[0].packageC,
-      newborn: arr[0].newborn,
-      senior: arr[0].senior,
-      maternity: arr[0].maternity
+      families: arr.families,
+      extended: arr.extended,
+      packageA: arr.packageA,
+      packageB: arr.packageB,
+      packageC: arr.packageC,
+      newborn: arr.newborn,
+      senior: arr.senior,
+      maternity: arr.maternity
     });
   });
 });
@@ -58,17 +58,19 @@ router.put("/pricing/:id", (req, res, next) => {
       updated[field] = req.body[field];
     }
   });
-  Price.findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
-    .then(updatedPrice => {
-      res.status(200).json({
-        message: "You successfully updated your price."
+  Price.findOne().then(price => {
+    Price.findByIdAndUpdate(price._id, { $set: updated }, { new: true })
+      .then(updatedPrice => {
+        res.status(200).json({
+          message: "You successfully updated your price."
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          message: "There is an error with updating your price."
+        });
       });
-    })
-    .catch(err => {
-      res.status(500).json({
-        message: "There is an error with updating your price."
-      });
-    });
+  });
 });
 
 router.delete("/pricing/:id", (req, res, next) => {
