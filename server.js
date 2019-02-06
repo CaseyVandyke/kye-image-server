@@ -63,7 +63,8 @@ app.post("/api/uploads", upload.single("selectedFile"), (req, res) => {
   const payload = {
     title: req.body.title,
     date: req.body.date,
-    image: "./uploads/images" + req.file.filename,
+    image:
+      "https://aqueous-peak-48000.herokuapp.com/images/" + req.file.filename,
     info: req.body.info
   };
   Image.create(payload)
