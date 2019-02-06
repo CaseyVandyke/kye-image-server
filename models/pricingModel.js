@@ -11,7 +11,8 @@ const priceSchema = mongoose.Schema({
   packageC: String,
   newborn: String,
   senior: String,
-  maternity: String
+  maternity: String,
+  id: Number
 });
 
 const Price = mongoose.model("price", priceSchema);

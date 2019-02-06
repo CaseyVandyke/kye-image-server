@@ -29,7 +29,8 @@ router.post("/pricing", jsonParser, (req, res, next) => {
     packageC: req.body.packageC,
     newborn: req.body.newborn,
     senior: req.body.senior,
-    maternity: req.body.maternity
+    maternity: req.body.maternity,
+    id: 12345
   };
   Price.create(payload)
     .then(newPrice => res.status(201).json(newPrice))
@@ -58,19 +59,20 @@ router.put("/pricing/:id", (req, res, next) => {
       updated[field] = req.body[field];
     }
   });
-  Price.find().then(price => {
-    Price.findByIdAndUpdate(price[0]._id, { $set: updated }, { new: true })
-      .then(updatedPrice => {
-        res.status(200).json({
-          message: "You successfully updated your price."
-        });
-      })
-      .catch(err => {
-        res.status(500).json({
-          message: "There is an error with updating your price."
-        });
+  let id = 12345;
+  //Price.find().then(price => {
+  Price.findByIdAndUpdate(id, { $set: updated }, { new: true })
+    .then(updatedPrice => {
+      res.status(200).json({
+        message: "You successfully updated your price."
       });
-  });
+    })
+    .catch(err => {
+      res.status(500).json({
+        message: "There is an error with updating your price."
+      });
+    });
+  // });
 });
 
 router.delete("/pricing/:id", (req, res, next) => {
