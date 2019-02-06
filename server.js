@@ -59,7 +59,7 @@ const storage = multer.diskStorage({
 // Create the multer instance that will be used to upload/save the file
 const upload = multer({ storage });
 
-app.post("/uploads", upload.single("selectedFile"), (req, res) => {
+app.post("/api/uploads", upload.single("selectedFile"), (req, res) => {
   const payload = {
     title: req.body.title,
     date: req.body.date,
@@ -91,7 +91,6 @@ app.use(express.json());
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-app.use(express.static("uploads"));
 app.use("/api", adminRouter);
 app.use("/api", priceRouter);
 app.use("/api", userRouter);
