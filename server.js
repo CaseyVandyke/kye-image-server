@@ -18,7 +18,7 @@ const { router: contactRouter } = require("./routers/contactRouter");
 const { router: router, localStrategy, jwtStrategy } = require("./auth");
 
 const app = express();
-
+app.use(express.static("uploads"));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
@@ -63,8 +63,7 @@ app.post("/uploads", upload.single("selectedFile"), (req, res) => {
   const payload = {
     title: req.body.title,
     date: req.body.date,
-    image:
-      "https://aqueous-peak-48000.herokuapp.com/images/" + req.file.filename,
+    image: "./uploads/images" + req.file.filename,
     info: req.body.info
   };
   Image.create(payload)
