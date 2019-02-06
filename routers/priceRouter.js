@@ -58,8 +58,8 @@ router.put("/pricing/:id", (req, res, next) => {
       updated[field] = req.body[field];
     }
   });
-  Price.findOne().then(price => {
-    Price.findByIdAndUpdate(price._id, { $set: updated }, { new: true })
+  Price.find().then(price => {
+    Price.findByIdAndUpdate(price[0]._id, { $set: updated }, { new: true })
       .then(updatedPrice => {
         res.status(200).json({
           message: "You successfully updated your price."
