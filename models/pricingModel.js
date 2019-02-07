@@ -12,7 +12,10 @@ const priceSchema = mongoose.Schema({
   newborn: String,
   senior: String,
   maternity: String,
-  id: Number
+  id: {
+    type: Number,
+    required: true
+  }
 });
 
 const Price = mongoose.model("price", priceSchema);
