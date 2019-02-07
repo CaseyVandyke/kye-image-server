@@ -60,19 +60,19 @@ router.put("/pricing", (req, res, next) => {
     }
   });
   let id = 12345;
-  Price.find({ id: id }).then(price => {
-    Price.findByIdAndUpdate(price._id, { $set: updated }, { new: true })
-      .then(updatedPrice => {
-        res.status(200).json({
-          message: "You successfully updated your price."
-        });
-      })
-      .catch(err => {
-        res.status(500).json({
-          message: "There is an error with updating your price."
-        });
+  //Price.find({ id: id }).then(price => {
+  Price.findByIdAndUpdate(id, { $set: updated }, { new: true })
+    .then(updatedPrice => {
+      res.status(200).json({
+        message: "You successfully updated your price."
       });
-  });
+    })
+    .catch(err => {
+      res.status(500).json({
+        message: "There is an error with updating your price."
+      });
+    });
+  //});
 });
 
 router.delete("/pricing/:id", (req, res, next) => {
