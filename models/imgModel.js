@@ -5,10 +5,10 @@ mongoose.Promise = global.Promise;
 
 const imageSchema = mongoose.Schema({
   title: String,
-  date: {
-    type: Date,
-    default: Date.now
-  },
+  // date: {
+  // type: Date,
+  // default: Date.now
+  //},
   image: String,
   info: String
 });
