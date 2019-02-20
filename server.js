@@ -18,7 +18,7 @@ const { router: contactRouter } = require("./routers/contactRouter");
 const { router: router, localStrategy, jwtStrategy } = require("./auth");
 
 const app = express();
-app.use(express.static("uploads"));
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
@@ -29,6 +29,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(express.static("uploads"));
 // File Upload
 const multer = require("multer");
 const uuidv4 = require("uuid/v4");
